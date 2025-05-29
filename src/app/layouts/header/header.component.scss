@@ -1,0 +1,48 @@
+.sidenav-wrapper {
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+mat-toolbar {
+  background: var(--green-primary);
+  color: var(--iwhite);
+}
+
+mat-nav-list {
+  position: relative;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+
+.list-div.active {
+  background-color: var(--green-light) !important;
+}
+
+ul {
+  position: relative;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+.example-accordion {
+  display: block;
+  max-width: 500px;
+}
+
+.example-accordion-item {
+  display: block;
+}
+.mat-drawer {
+  border-radius: 0;
+}
+* {
+  font-family: "Inter", sans-serif !important;
+}
+
+:host .mat-menu-item .mat-menu-item-text {
+  font-family: "Inter", sans-serif;
+}

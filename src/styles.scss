@@ -1,4 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+}
+:root {
+  --green-extra-light: #e6f4ea;
+  --green-light: #c0e4c7;
+  --green-muted: #98d5a2;
+  --green: #6fc77c;
+  --green-primary: #2caf43;
+  --green-hover: #24963a;
+  --green-dark: #1c7b31;
+  --green-deep: #146228;
+  --green-accent: #4dbb5f;
+  --iwhite: #fffff0;
+}
+
+.btn-primary {
+  background-color: var(--green-primary) !important;
+  border: none !important;
+}

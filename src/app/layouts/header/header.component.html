@@ -1,0 +1,163 @@
+<mat-toolbar>
+  <button
+    mat-icon-button
+    class="example-icon"
+    (click)="sidenav.toggle()"
+    aria-label="Example icon-button with menu icon"
+  >
+    <lucide-angular
+      [img]="menuIcon"
+      class="my-icon text-white"
+    ></lucide-angular>
+  </button>
+  <span class="fw-semibold">SmartAvaas</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button aria-label="Notifications" class="position-relative">
+    <lucide-angular
+      [img]="bellIcon"
+      class="my-icon text-white"
+    ></lucide-angular>
+    <span
+      class="position-absolute"
+      style="
+        top: 5px;
+        right: 8px;
+        width: 10px;
+        height: 10px;
+        background: #dc3545;
+        border: 2px solid #fff;
+        border-radius: 50%;
+        display: inline-block;
+        pointer-events: none;
+      "
+    ></span>
+  </button>
+  <button mat-icon-button aria-label="Profile" [matMenuTriggerFor]="menu">
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        Login &nbsp;<lucide-angular
+          [img]="loginIcon"
+          class="my-icon"
+          routerLink="/login"
+        ></lucide-angular>
+      </button>
+    </mat-menu>
+    <lucide-angular
+      [img]="userIcon"
+      class="my-icon text-white"
+    ></lucide-angular>
+  </button>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-wrapper">
+  <mat-sidenav #sidenav mode="over">
+    <nav>
+      <ul class="py-3 px-5 list-unstyled">
+        <li
+          *ngFor="let n of navItems; let i = index"
+          class="w-100 cursor-pointer"
+        >
+          <div
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            [routerLink]="n.path"
+            class="rounded-5 list-div d-flex flex-row py-2 ps-3"
+            matRipple
+            (click)="sidenav.toggle()"
+          >
+            <lucide-angular [img]="n.icon" class="my-icon"></lucide-angular>
+            <p class="ps-2 m-0 fw-semibold">{{ n.menuItem }}</p>
+          </div>
+          <ng-container *ngIf="i === 2">
+            <cdk-accordion class="example-accordion border-0 border">
+              @for (item of items; track item; let index = $index) {
+              <cdk-accordion-item
+                #accordionItem="cdkAccordionItem"
+                class="example-accordion-item"
+              >
+                <div
+                  class="rounded-5 list-div d-flex flex-row py-2 ps-3 align-items-center"
+                  style="
+                    cursor: pointer;
+                    background-color: inherit;
+                    color: inherit;
+                  "
+                >
+                  <button
+                    class="example-accordion-item-header d-flex align-items-center border-0 bg-transparent p-0 w-100"
+                    (click)="accordionItem.toggle()"
+                    tabindex="0"
+                    [attr.id]="'accordion-header-' + index"
+                    [attr.aria-expanded]="accordionItem.expanded"
+                    [attr.aria-controls]="'accordion-body-' + index"
+                    style="color: inherit"
+                  >
+                    <lucide-angular
+                      [img]="usersIcon"
+                      class="my-icon"
+                      [ngStyle]="{ color: 'inherit' }"
+                    ></lucide-angular>
+                    <span
+                      class="ps-2 fw-semibold flex-grow-1 text-start"
+                      style="color: inherit"
+                      >Community</span
+                    >
+                    <span class="example-accordion-item-description ms-auto">
+                      <lucide-angular
+                        [img]="
+                          accordionItem.expanded
+                            ? chevronupIcon
+                            : chevronDownIcon
+                        "
+                        class="my-icon"
+                        [ngStyle]="{ color: 'inherit' }"
+                      ></lucide-angular>
+                    </span>
+                  </button>
+                </div>
+                @if(accordionItem.expanded) {
+                <div
+                  class="example-accordion-item-body ms-4"
+                  role="region"
+                  [style.display]="accordionItem.expanded ? '' : 'none'"
+                  [attr.id]="'accordion-body-' + index"
+                  [attr.aria-labelledby]="'accordion-header-' + index"
+                  style="color: inherit"
+                >
+                  <ul class="list-unstyled ps-2">
+                    <li
+                      *ngFor="let n of community; let i = index"
+                      class="w-100 cursor-pointer"
+                    >
+                      <div
+                        routerLinkActive="active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        [routerLink]="n.path"
+                        class="rounded-4 list-div d-flex flex-row py-2 ps-3 align-items-center"
+                        matRipple
+                        (click)="sidenav.toggle()"
+                        style="background: transparent; min-height: 40px"
+                      >
+                        <lucide-angular
+                          [img]="n.icon"
+                          class="my-icon"
+                        ></lucide-angular>
+                        <p class="ps-2 m-0 fw-semibold small">
+                          {{ n.menuItem }}
+                        </p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                }
+              </cdk-accordion-item>
+              }
+            </cdk-accordion>
+          </ng-container>
+        </li>
+      </ul>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content class="container-fluid">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
