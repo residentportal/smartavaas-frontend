@@ -34,11 +34,10 @@
   </button>
   <button mat-icon-button aria-label="Profile" [matMenuTriggerFor]="menu">
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item routerLink="/login">
         Login &nbsp;<lucide-angular
           [img]="loginIcon"
           class="my-icon"
-          routerLink="/login"
         ></lucide-angular>
       </button>
     </mat-menu>
