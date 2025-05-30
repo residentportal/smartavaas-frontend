@@ -37,12 +37,21 @@
   </button>
   <button mat-icon-button aria-label="Profile" [matMenuTriggerFor]="menu">
     <mat-menu #menu="matMenu">
+      @if(authService.isAuthenticated()){
+      <button mat-menu-item (click)="logout()">
+        Logout &nbsp;<lucide-angular
+          [img]="logoutIcon"
+          class="my-icon"
+        ></lucide-angular>
+      </button>
+      } @else {
       <button mat-menu-item routerLink="/login">
         Login &nbsp;<lucide-angular
           [img]="loginIcon"
           class="my-icon"
         ></lucide-angular>
       </button>
+      }
     </mat-menu>
     <lucide-angular
       [img]="userIcon"
