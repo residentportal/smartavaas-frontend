@@ -4,31 +4,31 @@
     <div class="card-body">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
+          <label for="mobile" class="form-label">Mobile</label>
           <input
-            type="email"
-            id="email"
+            type="mobile"
+            id="mobile"
             class="form-control"
-            formControlName="email"
+            formControlName="mobile"
             [ngClass]="{
               'is-invalid':
-                loginForm.get('email')?.invalid &&
-                (loginForm.get('email')?.touched ||
-                  loginForm.get('email')?.dirty)
+                loginForm.get('mobile')?.invalid &&
+                (loginForm.get('mobile')?.touched ||
+                  loginForm.get('mobile')?.dirty)
             }"
           />
-          @if(loginForm.get('email')?.invalid){
+          @if(loginForm.get('mobile')?.invalid){
           <div
             class="text-danger mt-1"
             *ngIf="
-              loginForm.get('email')?.touched || loginForm.get('email')?.dirty
+              loginForm.get('mobile')?.touched || loginForm.get('mobile')?.dirty
             "
           >
-            <small *ngIf="loginForm.get('email')?.errors?.['required']"
-              >Email is required.</small
+            <small *ngIf="loginForm.get('mobile')?.errors?.['required']"
+              >mobile is required.</small
             >
-            <small *ngIf="loginForm.get('email')?.errors?.['email']"
-              >Enter a valid email address.</small
+            <small *ngIf="loginForm.get('mobile')?.errors?.['mobile']"
+              >Enter a valid mobile address.</small
             >
           </div>
           }
@@ -76,6 +76,8 @@
   </div>
   <p class="text-center mt-3">
     No Account yet?
-    <span><a href="#" class="text-decoration-none">SignUp</a></span>
+    <span
+      ><a routerLink="/register" class="text-decoration-none">SignUp</a></span
+    >
   </p>
 </div>

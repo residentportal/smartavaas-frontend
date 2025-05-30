@@ -1,6 +1,6 @@
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -28,6 +28,7 @@ import {
   UserIcon,
   UsersIcon,
 } from 'lucide-angular';
+import { AuthService } from '../../features/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -50,6 +51,7 @@ import {
 })
 export class HeaderComponent {
   constructor(public route: Router) {}
+  protected authService = inject(AuthService);
   readonly FileIcon = FileIcon;
   showFiller = false;
   readonly menuIcon = MenuIcon;
@@ -110,4 +112,8 @@ export class HeaderComponent {
       icon: FileIcon,
     },
   ];
+  logout() {
+    this.authService.logout();
+    this.route.navigate(['/']);
+  }
 }
