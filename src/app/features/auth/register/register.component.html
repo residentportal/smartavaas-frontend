@@ -1,0 +1,173 @@
+<div class="container-fluid" style="max-width: 400px; margin-top: 10vh">
+  <h1 class="text-center">Smart Avaas</h1>
+  <div class="form card shadow mb-2 bg-body-tertiary rounded-2 border-0">
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="d-flex gap-3">
+          <div class="mb-3">
+            <label for="firstname" class="form-label">First Name</label>
+            <input
+              type="text"
+              id="firstname"
+              class="form-control"
+              formControlName="firstname"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.get('firstname')?.invalid &&
+                  (registerForm.get('firstname')?.touched ||
+                    registerForm.get('firstname')?.dirty)
+              }"
+            />
+            @if(registerForm.get('firstname')?.invalid){
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                registerForm.get('firstname')?.touched ||
+                registerForm.get('firstname')?.dirty
+              "
+            >
+              <small *ngIf="registerForm.get('firstname')?.errors?.['required']"
+                >firstname is required</small
+              >
+            </div>
+            }
+          </div>
+          <div class="mb-3">
+            <label for="lastname" class="form-label">Last Name</label>
+            <input
+              type="text"
+              id="lastname"
+              class="form-control"
+              formControlName="lastname"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.get('lastname')?.invalid &&
+                  (registerForm.get('lastname')?.touched ||
+                    registerForm.get('lastname')?.dirty)
+              }"
+            />
+            @if(registerForm.get('lastname')?.invalid){
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                registerForm.get('lastname')?.touched ||
+                registerForm.get('lastname')?.dirty
+              "
+            >
+              <small *ngIf="registerForm.get('lastname')?.errors?.['required']"
+                >lastname is required</small
+              >
+            </div>
+            }
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            formControlName="email"
+            [ngClass]="{
+              'is-invalid':
+                registerForm.get('email')?.invalid &&
+                (registerForm.get('email')?.touched ||
+                  registerForm.get('email')?.dirty)
+            }"
+          />
+          @if(registerForm.get('email')?.invalid){
+          <div
+            class="text-danger mt-1"
+            *ngIf="
+              registerForm.get('email')?.touched ||
+              registerForm.get('email')?.dirty
+            "
+          >
+            <small *ngIf="registerForm.get('email')?.errors?.['required']"
+              >Email is required</small
+            >
+            <small *ngIf="registerForm.get('email')?.errors?.['email']"
+              >Enter a valid email address</small
+            >
+          </div>
+          }
+        </div>
+        <div class="mb-3">
+          <label for="mobile" class="form-label">Mobile Number</label>
+          <input
+            type="tel"
+            id="mobile"
+            class="form-control"
+            formControlName="mobile"
+            [ngClass]="{
+              'is-invalid':
+                registerForm.get('mobile')?.invalid &&
+                (registerForm.get('mobile')?.touched ||
+                  registerForm.get('mobile')?.dirty)
+            }"
+          />
+          @if(registerForm.get('mobile')?.invalid){
+          <div
+            class="text-danger mt-1"
+            *ngIf="
+              registerForm.get('mobile')?.touched ||
+              registerForm.get('mobile')?.dirty
+            "
+          >
+            <small *ngIf="registerForm.get('mobile')?.errors?.['required']"
+              >Phone is required</small
+            >
+            <small *ngIf="registerForm.get('mobile')?.errors?.['pattern']"
+              >Invalid Format</small
+            >
+          </div>
+          }
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            [ngClass]="{
+              'is-invalid':
+                (registerForm.get('password')?.invalid &&
+                  (registerForm.get('password')?.touched ||
+                    registerForm.get('password')?.dirty)) ||
+                passwordTooShort
+            }"
+          />
+          @if(registerForm.get('password')?.invalid){
+          <div
+            class="text-danger mt-1"
+            *ngIf="
+              registerForm.get('password')?.touched ||
+              registerForm.get('password')?.dirty ||
+              passwordTooShort
+            "
+          >
+            <small *ngIf="registerForm.get('password')?.errors?.['required']"
+              >Password is required</small
+            >
+            <small class="text-danger mt-1" *ngIf="passwordTooShort"
+              >Password is too short</small
+            >
+          </div>
+          }
+        </div>
+        <button
+          type="submit"
+          [disabled]="registerForm.invalid"
+          class="btn btn-primary w-100"
+        >
+          Create Account
+        </button>
+      </form>
+    </div>
+  </div>
+  <p class="text-center mt-3">
+    Already have an account?
+    <span><a routerLink="/login" class="text-decoration-none">Login</a></span>
+  </p>
+</div>
