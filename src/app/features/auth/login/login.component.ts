@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -13,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { Login } from './login.model';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +19,6 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginComponent {
-  getUsername = signal<string>('');
   loginForm: FormGroup;
   submitted = false;
   private router = inject(Router);
@@ -45,8 +40,9 @@ export default class LoginComponent {
       return;
     }
     this.authService.login(formData).subscribe({
-      next: (res) => {
-        this.getUsername.set('John');
+      next: (res: Login) => {
+        localStorage.setItem('username', res.fullname ?? '');
+        localStorage.setItem('auth_token', res.token ?? '');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
