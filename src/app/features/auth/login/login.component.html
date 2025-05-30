@@ -25,10 +25,10 @@
             "
           >
             <small *ngIf="loginForm.get('mobile')?.errors?.['required']"
-              >mobile is required.</small
+              >Phone is required.</small
             >
-            <small *ngIf="loginForm.get('mobile')?.errors?.['mobile']"
-              >Enter a valid mobile address.</small
+            <small *ngIf="loginForm.get('mobile')?.errors?.['pattern']"
+              >Invalid Format.</small
             >
           </div>
           }
