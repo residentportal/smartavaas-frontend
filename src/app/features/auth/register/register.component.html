@@ -132,10 +132,9 @@
             formControlName="password"
             [ngClass]="{
               'is-invalid':
-                (registerForm.get('password')?.invalid &&
-                  (registerForm.get('password')?.touched ||
-                    registerForm.get('password')?.dirty)) ||
-                passwordTooShort
+                registerForm.get('password')?.invalid &&
+                (registerForm.get('password')?.touched ||
+                  registerForm.get('password')?.dirty)
             }"
           />
           @if(registerForm.get('password')?.invalid){
@@ -143,16 +142,15 @@
             class="text-danger mt-1"
             *ngIf="
               registerForm.get('password')?.touched ||
-              registerForm.get('password')?.dirty ||
-              passwordTooShort
+              registerForm.get('password')?.dirty
             "
           >
             <small *ngIf="registerForm.get('password')?.errors?.['required']"
               >Password is required</small
             >
-            <small class="text-danger mt-1" *ngIf="passwordTooShort"
-              >Password is too short</small
-            >
+            <small *ngIf="registerForm.get('password')?.hasError('minlength')">
+              Password is too short
+            </small>
           </div>
           }
         </div>

@@ -2,7 +2,6 @@ import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { debounceTime, map } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -16,7 +15,6 @@ export default class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  passwordTooShort = false;
   registerForm = this.fb.group({
     firstname: ['', [Validators.required]],
     lastname: ['', [Validators.required]],
@@ -25,7 +23,7 @@ export default class RegisterComponent {
       '',
       [Validators.required, Validators.pattern(/^([+]\d{2})?\d{10}$/)],
     ],
-    password: ['', [Validators.required, Validators.min(8)]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
   onSubmit() {
@@ -48,13 +46,5 @@ export default class RegisterComponent {
     }
   }
 
-  constructor() {
-    this.registerForm
-      .get('password')
-      ?.valueChanges.pipe(
-        debounceTime(1),
-        map((e) => (this.passwordTooShort = e && e.length < 8 ? true : false))
-      )
-      .subscribe();
-  }
+  constructor() {}
 }
