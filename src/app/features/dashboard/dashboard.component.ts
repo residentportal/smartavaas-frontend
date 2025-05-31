@@ -8,5 +8,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class DashboardComponent {
-  protected username = localStorage.getItem('username');
+  protected username = sessionStorage.getItem('username');
 }

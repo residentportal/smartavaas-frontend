@@ -66,10 +66,14 @@
         </div>
         <button
           type="submit"
-          [disabled]="loginForm.invalid"
+          [disabled]="loginForm.invalid || isLoading()"
           class="btn btn-primary w-100"
         >
-          Login
+          <span>{{ isLoading() ? "" : "Login" }} </span>@if(isLoading()){
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          }
         </button>
       </form>
     </div>

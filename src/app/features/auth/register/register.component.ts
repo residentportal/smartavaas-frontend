@@ -1,5 +1,10 @@
 import { NgClass, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../auth.service';
@@ -12,6 +17,7 @@ import { AuthService } from '../auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class RegisterComponent {
+  protected isLoading = signal<boolean>(false);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -28,6 +34,7 @@ export default class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid && this.registerForm.value) {
+      this.isLoading.set(true);
       const formData = {
         firstname: this.registerForm.value.firstname ?? '',
         lastname: this.registerForm.value.lastname ?? '',
@@ -37,10 +44,12 @@ export default class RegisterComponent {
       };
       this.authService.register(formData).subscribe({
         next: () => {
+          this.isLoading.set(false);
           this.router.navigate(['/login']);
         },
         error: (err) => {
           console.log(err);
+          this.isLoading.set(false);
         },
       });
     }
