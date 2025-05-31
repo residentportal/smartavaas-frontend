@@ -156,10 +156,15 @@
         </div>
         <button
           type="submit"
-          [disabled]="registerForm.invalid"
+          [disabled]="registerForm.invalid || isLoading()"
           class="btn btn-primary w-100"
         >
-          Create Account
+          <span>{{ isLoading() ? "" : "Create Account" }} </span
+          >@if(isLoading()){
+          <div class="spinner-border spinner-border-sm" role="status">
+            <span class="visually-hidden"></span>
+          </div>
+          }
         </button>
       </form>
     </div>

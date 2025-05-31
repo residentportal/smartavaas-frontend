@@ -1,0 +1,9 @@
+:host ::ng-deep {
+  .p-toast-message {
+    background: var(--iwhite) !important;
+  }
+
+  .p-toast-detail {
+    color: var(--iblack) !important;
+  }
+}
