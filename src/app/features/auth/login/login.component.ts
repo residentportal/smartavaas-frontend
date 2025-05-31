@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../auth.service';
 import { Login } from './login.model';
 
@@ -25,6 +26,7 @@ import { Login } from './login.model';
 })
 export default class LoginComponent {
   protected isLoading = signal<boolean>(false);
+  private toastService = inject(ToastService);
   loginForm: FormGroup;
   private router = inject(Router);
   private authService = inject(AuthService);
@@ -49,11 +51,13 @@ export default class LoginComponent {
         sessionStorage.setItem('username', res.fullname ?? '');
         sessionStorage.setItem('auth_token', res.token ?? '');
         this.isLoading.set(false);
+        this.toastService.showSuccess('Success', 'Login Success');
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
         console.log(err);
         this.isLoading.set(false);
+        this.toastService.showError('Error', err.error);
       },
     });
   }

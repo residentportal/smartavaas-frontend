@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -18,6 +19,7 @@ import { AuthService } from '../auth.service';
 })
 export default class RegisterComponent {
   protected isLoading = signal<boolean>(false);
+  private toastService = inject(ToastService);
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -45,11 +47,13 @@ export default class RegisterComponent {
       this.authService.register(formData).subscribe({
         next: () => {
           this.isLoading.set(false);
+          this.toastService.showSuccess('Sucess', 'Created Successfully');
           this.router.navigate(['/login']);
         },
         error: (err) => {
           console.log(err);
           this.isLoading.set(false);
+          this.toastService.showError('Error', err.error);
         },
       });
     }
