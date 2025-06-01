@@ -65,7 +65,7 @@
       <ul class="py-3 px-5 list-unstyled">
         <li
           *ngFor="let n of navItems; let i = index"
-          class="w-100 cursor-pointer"
+          class="w-100 cursor-pointer mb-2"
         >
           <div
             routerLinkActive="active"
@@ -83,10 +83,10 @@
               @for (item of items; track item; let index = $index) {
               <cdk-accordion-item
                 #accordionItem="cdkAccordionItem"
-                class="example-accordion-item"
+                class="example-accordion-item mb-2"
               >
                 <div
-                  class="rounded-5 list-div d-flex flex-row py-2 ps-3 align-items-center"
+                  class="rounded-5 list-div d-flex flex-row py-2 ps-3 mb-2 align-items-center"
                   style="
                     cursor: pointer;
                     background-color: inherit;
@@ -137,7 +137,7 @@
                   <ul class="list-unstyled ps-2">
                     <li
                       *ngFor="let n of community; let i = index"
-                      class="w-100 cursor-pointer"
+                      class="w-100 cursor-pointer mb-2"
                     >
                       <div
                         routerLinkActive="active"
