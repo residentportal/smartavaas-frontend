@@ -1,0 +1,110 @@
+<div class="m-3">
+  <div class="row p-3 rounded-4">
+    <h2>Have questions or ready to start?</h2>
+    <p>Drop us a message, we'll respond within 24 hours!</p>
+    <div class="col-12 col-md-6 col-lg-6 contact-form">
+      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="form-group mb-3 col-sm-12 col-lg-6">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input
+              id="fullname"
+              type="text"
+              class="form-control"
+              formControlName="fullname"
+            />
+            <div
+              *ngIf="
+                contactForm.get('fullname')?.touched &&
+                contactForm.get('fullname')?.invalid
+              "
+              class="text-danger"
+            >
+              Full name is required.
+            </div>
+          </div>
+          <div class="form-group mb-3 col0-sm-12 col-lg-6">
+            <label for="email" class="form-label">Email</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              formControlName="email"
+            />
+            <div
+              *ngIf="
+                contactForm.get('email')?.touched &&
+                contactForm.get('email')?.invalid
+              "
+              class="text-danger"
+            >
+              <div *ngIf="contactForm.get('email')?.errors?.['required']">
+                Email is required.
+              </div>
+              <div *ngIf="contactForm.get('email')?.errors?.['email']">
+                Enter a valid email.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label for="subject" class="form-label">Subject</label>
+          <input
+            id="subject"
+            type="text"
+            class="form-control"
+            formControlName="subject"
+          />
+          <div
+            *ngIf="
+              contactForm.get('subject')?.touched &&
+              contactForm.get('subject')?.invalid
+            "
+            class="text-danger"
+          >
+            Subject is required.
+          </div>
+        </div>
+        <div class="form-group mb-3">
+          <label for="message" class="form-label">Message</label>
+          <textarea
+            id="message"
+            rows="4"
+            class="form-control"
+            formControlName="message"
+          ></textarea>
+          <div
+            *ngIf="
+              contactForm.get('message')?.touched &&
+              contactForm.get('message')?.invalid
+            "
+            class="text-danger"
+          >
+            Message is required.
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary w-100"
+          [disabled]="contactForm.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+    <div class="col-12 col-md-6 col-lg-6 px-lg-5 p-2">
+      @for (r of contact; track r) {
+      <div class="d-flex align-items-center p-3 gap-3">
+        <div class="icon rounded-circle p-3">
+          <lucide-angular [img]="r.icon" class="my-icon"></lucide-angular>
+        </div>
+        <div class="">
+          <dd class="fw-bold m-0">{{ r.label }}</dd>
+          <p class="p-0 m-0">{{ r.value }}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</div>

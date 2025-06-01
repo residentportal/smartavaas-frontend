@@ -15,4 +15,8 @@ export const routes: Routes = [
     loadComponent: () => import('./features/dashboard/dashboard.component'),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'contact',
+    loadComponent: () => import('./features/contact/contact.component'),
+  },
 ];
