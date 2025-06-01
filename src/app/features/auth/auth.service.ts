@@ -13,7 +13,7 @@ export class AuthService {
   private router = inject(Router);
   constructor() {}
 
-  protected baseURL = 'http://backend-710061159.us-east-1.elb.amazonaws.com/';
+  protected baseURL = 'https://drab-edyth-kahar12911-2937e591.koyeb.app/';
   private http = inject(HttpClient);
 
   login(data: Login) {
