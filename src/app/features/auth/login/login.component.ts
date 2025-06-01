@@ -32,10 +32,7 @@ export default class LoginComponent {
   private authService = inject(AuthService);
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      mobile: [
-        '',
-        [Validators.required, Validators.pattern(/^([+]\d{2})?\d{10}$/)],
-      ],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
   }

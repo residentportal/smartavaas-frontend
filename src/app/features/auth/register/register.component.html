@@ -27,7 +27,7 @@
               "
             >
               <small *ngIf="registerForm.get('firstname')?.errors?.['required']"
-                >firstname is required</small
+                >Firstname is required</small
               >
             </div>
             }
@@ -55,7 +55,7 @@
               "
             >
               <small *ngIf="registerForm.get('lastname')?.errors?.['required']"
-                >lastname is required</small
+                >Lastname is required</small
               >
             </div>
             }
@@ -130,6 +130,7 @@
             id="password"
             class="form-control"
             formControlName="password"
+            (input)="onPasswordInput($event)"
             [ngClass]="{
               'is-invalid':
                 registerForm.get('password')?.invalid &&
@@ -151,8 +152,86 @@
             <small *ngIf="registerForm.get('password')?.hasError('minlength')">
               Password is too short
             </small>
+            <small *ngIf="registerForm.get('password')?.errors?.['pattern']"
+              ><ul class="list-unstyled small mt-2">
+                <li
+                  [ngClass]="{
+                    'text-success': passwordChecks.hasUpperCase,
+                    'text-danger': !passwordChecks.hasUpperCase
+                  }"
+                >
+                  {{ passwordChecks.hasUpperCase ? "✔" : "X" }} At least one
+                  uppercase letter
+                </li>
+                <li
+                  [ngClass]="{
+                    'text-success': passwordChecks.hasLowerCase,
+                    'text-danger': !passwordChecks.hasLowerCase
+                  }"
+                >
+                  {{ passwordChecks.hasLowerCase ? "✔" : "X" }} At least one
+                  lowercase letter
+                </li>
+                <li
+                  [ngClass]="{
+                    'text-success': passwordChecks.hasNumber,
+                    'text-danger': !passwordChecks.hasNumber
+                  }"
+                >
+                  {{ passwordChecks.hasNumber ? "✔" : "X" }} At least one number
+                </li>
+                <li
+                  [ngClass]="{
+                    'text-success': passwordChecks.hasSymbol,
+                    'text-danger': !passwordChecks.hasSymbol
+                  }"
+                >
+                  {{ passwordChecks.hasSymbol ? "✔" : "X" }} At least one
+                  special character
+                </li>
+                <li
+                  [ngClass]="{
+                    'text-success': passwordChecks.hasMinLength,
+                    'text-danger': !passwordChecks.hasMinLength
+                  }"
+                >
+                  {{ passwordChecks.hasMinLength ? "✔" : "X" }} Minimum 8
+                  characters
+                </li>
+              </ul>
+            </small>
           </div>
           }
+        </div>
+        <div class="mb-3">
+          <label for="confirmpassword" class="form-label"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            id="confirmpassword"
+            class="form-control"
+            formControlName="confirmpassword"
+            [ngClass]="{
+              'is-invalid':
+                registerForm.hasError('passwordMismatch') &&
+                (registerForm.get('confirmpassword')?.touched ||
+                  registerForm.get('confirmpassword')?.dirty)
+            }"
+          />
+          <div
+            class="text-danger mt-1"
+            *ngIf="
+              (registerForm.get('confirmpassword')?.touched ||
+                registerForm.get('confirmpassword')?.dirty) &&
+              (registerForm.get('confirmpassword')?.invalid ||
+                registerForm.hasError('passwordMismatch'))
+            "
+          >
+            <small *ngIf="registerForm.hasError('passwordMismatch')">
+              Passwords do not match
+            </small>
+          </div>
         </div>
         <button
           type="submit"

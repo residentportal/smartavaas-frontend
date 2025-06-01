@@ -23,16 +23,35 @@ export default class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  registerForm = this.fb.group({
-    firstname: ['', [Validators.required]],
-    lastname: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    mobile: [
-      '',
-      [Validators.required, Validators.pattern(/^([+]\d{2})?\d{10}$/)],
-    ],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-  });
+  password: string = '';
+  registerForm = this.fb.group(
+    {
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      mobile: [
+        '',
+        [Validators.required, Validators.pattern(/^([+]\d{2})?\d{10}$/)],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/
+          ),
+        ],
+      ],
+      confirmpassword: ['', [Validators.required, Validators.minLength(8)]],
+    },
+    {
+      validators: (group) => {
+        const password = group.get('password')?.value;
+        const confirmPassword = group.get('confirmpassword')?.value;
+        return password === confirmPassword ? null : { passwordMismatch: true };
+      },
+    }
+  );
 
   onSubmit() {
     if (this.registerForm.valid && this.registerForm.value) {
@@ -57,6 +76,20 @@ export default class RegisterComponent {
         },
       });
     }
+  }
+
+  get passwordChecks() {
+    return {
+      hasUpperCase: /[A-Z]/.test(this.password),
+      hasLowerCase: /[a-z]/.test(this.password),
+      hasNumber: /\d/.test(this.password),
+      hasSymbol: /[\W_]/.test(this.password),
+      hasMinLength: this.password.length >= 8,
+    };
+  }
+  onPasswordInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.password = input?.value || '';
   }
 
   constructor() {}
