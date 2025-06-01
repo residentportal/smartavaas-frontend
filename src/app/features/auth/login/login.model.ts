@@ -1,5 +1,5 @@
 export interface Login {
-  mobile: string;
+  email: string;
   password: string;
   token?: string;
   fullname?: string;

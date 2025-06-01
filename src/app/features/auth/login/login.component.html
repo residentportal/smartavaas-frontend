@@ -4,30 +4,30 @@
     <div class="card-body">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="mobile" class="form-label">Mobile</label>
+          <label for="email" class="form-label">Email</label>
           <input
-            type="mobile"
-            id="mobile"
+            type="email"
+            id="email"
             class="form-control"
-            formControlName="mobile"
+            formControlName="email"
             [ngClass]="{
               'is-invalid':
-                loginForm.get('mobile')?.invalid &&
-                (loginForm.get('mobile')?.touched ||
-                  loginForm.get('mobile')?.dirty)
+                loginForm.get('email')?.invalid &&
+                (loginForm.get('email')?.touched ||
+                  loginForm.get('email')?.dirty)
             }"
           />
-          @if(loginForm.get('mobile')?.invalid){
+          @if(loginForm.get('email')?.invalid){
           <div
             class="text-danger mt-1"
             *ngIf="
-              loginForm.get('mobile')?.touched || loginForm.get('mobile')?.dirty
+              loginForm.get('email')?.touched || loginForm.get('email')?.dirty
             "
           >
-            <small *ngIf="loginForm.get('mobile')?.errors?.['required']"
-              >Phone is required.</small
+            <small *ngIf="loginForm.get('email')?.errors?.['required']"
+              >Email ID is required.</small
             >
-            <small *ngIf="loginForm.get('mobile')?.errors?.['pattern']"
+            <small *ngIf="loginForm.get('email')?.errors?.['email']"
               >Invalid Format.</small
             >
           </div>
