@@ -13,7 +13,7 @@ export class AuthService {
   private router = inject(Router);
   constructor() {}
 
-  protected baseURL = 'https://drab-edyth-kahar12911-2937e591.koyeb.app/';
+  protected baseURL = 'http://10.0.2.224:8080/';
   private http = inject(HttpClient);
 
   login(data: Login) {
