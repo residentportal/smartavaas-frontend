@@ -28,6 +28,15 @@ body {
   border: none !important;
 }
 
+.form-control:focus {
+  border-color: var(--green-primary);
+  box-shadow: 0 0 0 0.1rem rgba(var(--green-primary), 0.25);
+}
+.form-control.is-invalid:focus {
+  border-color: var(--bs-form-invalid-border-color);
+  box-shadow: 0 0 0 0.1rem rgba(var(--bs-danger-rgb), 0.25);
+}
+
 html {
   @include mat.theme(
     (
