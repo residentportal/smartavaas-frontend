@@ -14,18 +14,23 @@ import {
   CheckCircle,
   ChevronDown,
   ChevronUp,
+  CircleDollarSign,
+  CircleUser,
+  ConstructionIcon,
   Contact,
   FileIcon,
   FileText,
-  Hammer,
   HelpCircle,
   LayoutDashboard,
   LogInIcon,
   LogOutIcon,
   LucideAngularModule,
   MenuIcon,
+  MicVocalIcon,
   PhoneCall,
   Settings,
+  StoreIcon,
+  TicketPercentIcon,
   UserIcon,
   UsersIcon,
 } from 'lucide-angular';
@@ -64,6 +69,9 @@ export class HeaderComponent {
   readonly logoutIcon = LogOutIcon;
   readonly loginIcon = LogInIcon;
   readonly contactIcon = Contact;
+  readonly dollarIcon = CircleDollarSign;
+  readonly storeIcon = StoreIcon;
+  readonly ticketIcon = TicketPercentIcon;
   items = ['Placeholder 1'];
   navItems = [
     {
@@ -72,9 +80,29 @@ export class HeaderComponent {
       icon: LayoutDashboard,
     },
     {
+      path: 'payments',
+      menuItem: 'Payments',
+      icon: CircleDollarSign,
+    },
+    {
+      path: 'marketplace',
+      menuItem: 'Marketplace',
+      icon: StoreIcon,
+    },
+    {
+      path: 'visitor',
+      menuItem: 'Visitor',
+      icon: CircleUser,
+    },
+    {
+      path: 'announcements',
+      menuItem: 'Announcements',
+      icon: MicVocalIcon,
+    },
+    {
       path: 'login',
       menuItem: 'Maintenance',
-      icon: Hammer,
+      icon: ConstructionIcon,
     },
     {
       path: 'documents',
@@ -112,6 +140,13 @@ export class HeaderComponent {
       path: 'forgot-password',
       menuItem: 'Community Documents',
       icon: FileIcon,
+    },
+  ];
+  amenities = [
+    {
+      path: 'reservation',
+      menuItem: 'Reservation',
+      icon: TicketPercentIcon,
     },
   ];
   logout() {
