@@ -14,6 +14,7 @@ import {
   CheckCircle,
   ChevronDown,
   ChevronUp,
+  Contact,
   FileIcon,
   FileText,
   Hammer,
@@ -62,6 +63,7 @@ export class HeaderComponent {
   readonly chevronDownIcon = ChevronDown;
   readonly logoutIcon = LogOutIcon;
   readonly loginIcon = LogInIcon;
+  readonly contactIcon = Contact;
   items = ['Placeholder 1'];
   navItems = [
     {
@@ -95,7 +97,7 @@ export class HeaderComponent {
       icon: Settings,
     },
     {
-      path: 'help-support',
+      path: 'contact',
       menuItem: 'Help Support',
       icon: HelpCircle,
     },
