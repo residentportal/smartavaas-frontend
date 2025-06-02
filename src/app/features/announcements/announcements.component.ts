@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ToastService } from '../../core/services/toast.service';
+import { Announcement } from './announcement.model';
 import { AnnouncementService } from './announcement.service';
 import { announcementData, announcementToken } from './announcement.values';
 
@@ -13,17 +15,28 @@ import { announcementData, announcementToken } from './announcement.values';
 })
 export default class AnnouncementsComponent {
   private announcementService = inject(AnnouncementService);
-  announcements = announcementData.filter((s) => s.status === 'OPEN');
-
-  constructor() {
-    this.announcementService
-      .getAnnouncements()
-      .subscribe((c) => console.log(c));
-    console.log(this.announcements);
-    this.announcements = this.announcements.map((a) => ({
+  private toastService = inject(ToastService);
+  announcements: Announcement[] = announcementData
+    .filter((s) => s.status === 'OPEN')
+    .map((a) => ({
       ...a,
       createdAt: this.getRelativeTime(a.createdAt),
     }));
+
+  constructor() {
+    this.announcementService.getAnnouncements().subscribe({
+      next: (res) => {
+        this.announcements = res
+          .filter((open) => open.status === 'OPEN')
+          .map((a) => ({
+            ...a,
+            createdAt: this.getRelativeTime(a.createdAt),
+          }));
+      },
+      error: () => {
+        this.toastService.showError('Error', 'Error Fetching Details');
+      },
+    });
   }
   getRelativeTime(dateString: string): string {
     const now = new Date();
