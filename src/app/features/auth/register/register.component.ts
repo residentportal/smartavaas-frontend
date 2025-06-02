@@ -7,12 +7,19 @@ import {
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Eye, EyeClosed, LucideAngularModule } from 'lucide-angular';
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, NgClass, NgIf, RouterLink],
+  imports: [
+    ReactiveFormsModule,
+    NgClass,
+    NgIf,
+    RouterLink,
+    LucideAngularModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,16 +30,24 @@ export default class RegisterComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  readonly eyeOpenIcon = Eye;
+  readonly eyeCloseIcon = EyeClosed;
   password: string = '';
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  toggleShowConfirmPassword(): void {
+    this.showConfirmPassword = !this.showConfirmPassword;
+  }
   registerForm = this.fb.group(
     {
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      mobile: [
-        '',
-        [Validators.required, Validators.pattern(/^([+]\d{2})?\d{10}$/)],
-      ],
       password: [
         '',
         [
@@ -60,7 +75,6 @@ export default class RegisterComponent {
         firstname: this.registerForm.value.firstname ?? '',
         lastname: this.registerForm.value.lastname ?? '',
         email: this.registerForm.value.email ?? '',
-        mobile: this.registerForm.value.mobile ?? '',
         password: this.registerForm.value.password ?? '',
       };
       this.authService.register(formData).subscribe({

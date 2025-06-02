@@ -35,18 +35,32 @@
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            formControlName="password"
-            [ngClass]="{
-              'is-invalid':
-                loginForm.get('password')?.invalid &&
-                (loginForm.get('password')?.touched ||
-                  loginForm.get('password')?.dirty)
-            }"
-          />
+          <div class="position-relative">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              class="form-control"
+              formControlName="password"
+              [ngClass]="{
+                'is-invalid':
+                  loginForm.get('password')?.invalid &&
+                  (loginForm.get('password')?.touched ||
+                    loginForm.get('password')?.dirty)
+              }"
+              style="background-image: none !important"
+            />
+            @if(loginForm.get('password')?.touched ||
+            loginForm.get('password')?.dirty){
+            <lucide-angular
+              [img]="showPassword ? eyeCloseIcon : eyeOpenIcon"
+              [size]="20"
+              class="bi position-absolute top-50 translate-middle-y"
+              (click)="toggleShowPassword()"
+              style="right: 2rem; cursor: pointer"
+              aria-label="Toggle password visibility"
+            ></lucide-angular>
+            }
+          </div>
           @if(loginForm.get('password')?.invalid){
           <div
             class="text-danger mt-1"

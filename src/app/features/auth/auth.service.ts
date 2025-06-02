@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Login } from './login/login.model';
 import { Register } from './register/register.model';
 
@@ -13,7 +14,7 @@ export class AuthService {
   private router = inject(Router);
   constructor() {}
 
-  protected baseURL = 'https://drab-edyth-kahar12911-2937e591.koyeb.app/';
+  protected baseURL = environment.apiUrl;
   private http = inject(HttpClient);
 
   login(data: Login) {

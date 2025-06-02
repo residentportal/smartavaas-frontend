@@ -13,9 +13,9 @@ export class AnnouncementService {
   private http = inject(HttpClient);
 
   getAnnouncements(): Observable<Announcement[]> {
-    const token = ``;
+    const token = sessionStorage.getItem('auth_token');
     const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<Announcement[]>(`${this.baseURL}getAnnouncement`, {
+    return this.http.get<Announcement[]>(`${this.baseURL}api/getAnnouncement`, {
       headers,
     });
   }

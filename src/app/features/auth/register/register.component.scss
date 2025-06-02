@@ -2,3 +2,6 @@ a,
 h1 {
   color: var(--green-primary);
 }
+li {
+  user-select: none;
+}

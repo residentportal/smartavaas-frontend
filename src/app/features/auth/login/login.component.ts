@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Eye, EyeClosed, LucideAngularModule } from 'lucide-angular';
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../auth.service';
 import { Login } from './login.model';
@@ -21,7 +22,7 @@ import { Login } from './login.model';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginComponent {
@@ -30,6 +31,9 @@ export default class LoginComponent {
   loginForm: FormGroup;
   private router = inject(Router);
   private authService = inject(AuthService);
+  protected showPassword: boolean = false;
+  readonly eyeOpenIcon = Eye;
+  readonly eyeCloseIcon = EyeClosed;
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -37,6 +41,9 @@ export default class LoginComponent {
     });
   }
 
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
+  }
   onSubmit() {
     this.isLoading.set(true);
     const formData = this.loginForm.value;

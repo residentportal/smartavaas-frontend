@@ -1,1 +1,20 @@
-<p>announcements works!</p>
+<div class="m-3">
+  <div class="row justify-content-center">
+    <h2 class="mb-3">Recent Anouncements</h2>
+    @for(item of announcements; track item.id) {
+    <div class="col-12 col-md-6 col-lg-4 mb-4">
+      <div class="card p-0 shadow-green">
+        <div class="card-body">
+          <h6 class="card-title">{{ item.description }}</h6>
+          <hr class="my-1" />
+          <p>
+            Status
+            <span class="badge text-bg-success">{{ item.status }}</span>
+          </p>
+          <small class="float-end">{{ item.createdAt }}</small>
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>

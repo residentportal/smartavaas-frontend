@@ -93,51 +93,35 @@
           }
         </div>
         <div class="mb-3">
-          <label for="mobile" class="form-label">Mobile Number</label>
-          <input
-            type="tel"
-            id="mobile"
-            class="form-control"
-            formControlName="mobile"
-            [ngClass]="{
-              'is-invalid':
-                registerForm.get('mobile')?.invalid &&
-                (registerForm.get('mobile')?.touched ||
-                  registerForm.get('mobile')?.dirty)
-            }"
-          />
-          @if(registerForm.get('mobile')?.invalid){
-          <div
-            class="text-danger mt-1"
-            *ngIf="
-              registerForm.get('mobile')?.touched ||
-              registerForm.get('mobile')?.dirty
-            "
-          >
-            <small *ngIf="registerForm.get('mobile')?.errors?.['required']"
-              >Phone is required</small
-            >
-            <small *ngIf="registerForm.get('mobile')?.errors?.['pattern']"
-              >Invalid Format</small
-            >
+          <label for="password" class="form-label">New Password</label>
+          <div class="position-relative">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              id="password"
+              class="form-control pe-5"
+              formControlName="password"
+              (input)="onPasswordInput($event)"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.get('password')?.invalid &&
+                  (registerForm.get('password')?.touched ||
+                    registerForm.get('password')?.dirty)
+              }"
+              style="background-image: none !important"
+            />
+            @if(registerForm.get('password')?.touched ||
+            registerForm.get('password')?.dirty){
+            <lucide-angular
+              [img]="showPassword ? eyeCloseIcon : eyeOpenIcon"
+              [size]="20"
+              class="bi position-absolute top-50 translate-middle-y"
+              (click)="toggleShowPassword()"
+              style="right: 2rem; cursor: pointer"
+              aria-label="Toggle password visibility"
+            ></lucide-angular>
+            }
           </div>
-          }
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            formControlName="password"
-            (input)="onPasswordInput($event)"
-            [ngClass]="{
-              'is-invalid':
-                registerForm.get('password')?.invalid &&
-                (registerForm.get('password')?.touched ||
-                  registerForm.get('password')?.dirty)
-            }"
-          />
+
           @if(registerForm.get('password')?.invalid){
           <div
             class="text-danger mt-1"
@@ -207,30 +191,44 @@
           <label for="confirmpassword" class="form-label"
             >Confirm Password</label
           >
-          <input
-            type="password"
-            id="confirmpassword"
-            class="form-control"
-            formControlName="confirmpassword"
-            [ngClass]="{
-              'is-invalid':
-                registerForm.hasError('passwordMismatch') &&
+          <div class="position-relative">
+            <input
+              [type]="showConfirmPassword ? 'text' : 'password'"
+              id="confirmpassword"
+              class="form-control"
+              formControlName="confirmpassword"
+              [ngClass]="{
+                'is-invalid':
+                  registerForm.hasError('passwordMismatch') &&
+                  (registerForm.get('confirmpassword')?.touched ||
+                    registerForm.get('confirmpassword')?.dirty)
+              }"
+              style="background-image: none !important"
+            />
+            @if(registerForm.get('confirmpassword')?.touched ||
+            registerForm.get('confirmpassword')?.dirty){
+            <lucide-angular
+              [img]="showConfirmPassword ? eyeCloseIcon : eyeOpenIcon"
+              [size]="20"
+              class="bi position-absolute translate-middle-y"
+              (click)="toggleShowConfirmPassword()"
+              style="right: 2rem; cursor: pointer; top: 30% !important"
+              aria-label="Toggle password visibility"
+            ></lucide-angular>
+            }
+            <div
+              class="text-danger mt-1"
+              *ngIf="
                 (registerForm.get('confirmpassword')?.touched ||
-                  registerForm.get('confirmpassword')?.dirty)
-            }"
-          />
-          <div
-            class="text-danger mt-1"
-            *ngIf="
-              (registerForm.get('confirmpassword')?.touched ||
-                registerForm.get('confirmpassword')?.dirty) &&
-              (registerForm.get('confirmpassword')?.invalid ||
-                registerForm.hasError('passwordMismatch'))
-            "
-          >
-            <small *ngIf="registerForm.hasError('passwordMismatch')">
-              Passwords do not match
-            </small>
+                  registerForm.get('confirmpassword')?.dirty) &&
+                (registerForm.get('confirmpassword')?.invalid ||
+                  registerForm.hasError('passwordMismatch'))
+              "
+            >
+              <small *ngIf="registerForm.hasError('passwordMismatch')">
+                <span>Passwords do not match</span>
+              </small>
+            </div>
           </div>
         </div>
         <button
