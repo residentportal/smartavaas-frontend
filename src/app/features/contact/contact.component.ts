@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   Contact,
@@ -14,6 +14,7 @@ import { ToastService } from '../../core/services/toast.service';
   imports: [ReactiveFormsModule, CommonModule, LucideAngularModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ContactComponent {
   private fb = inject(FormBuilder);

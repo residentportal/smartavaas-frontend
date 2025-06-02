@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Toast } from 'primeng/toast';
 import { HeaderComponent } from './layouts/header/header.component';
 
@@ -7,6 +7,7 @@ import { HeaderComponent } from './layouts/header/header.component';
   imports: [HeaderComponent, Toast],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   title = 'smartavaas-frontend';
