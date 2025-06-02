@@ -28,5 +28,6 @@ export const routes: Routes = [
     path: 'announcements',
     loadComponent: () =>
       import('./features/announcements/announcements.component'),
+    canActivate: [AuthGuard],
   },
 ];
