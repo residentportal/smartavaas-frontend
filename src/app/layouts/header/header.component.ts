@@ -131,18 +131,7 @@ export class HeaderComponent {
       icon: HelpCircle,
     },
   ];
-  community = [
-    {
-      path: 'community-members',
-      menuItem: 'Community Members',
-      icon: UsersIcon,
-    },
-    {
-      path: 'forgot-password',
-      menuItem: 'Community Documents',
-      icon: FileIcon,
-    },
-  ];
+
   amenities = [
     {
       path: 'reservation',
