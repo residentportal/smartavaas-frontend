@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import AnnouncementsComponent from '../announcements/announcements.component';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [],
+  imports: [AnnouncementsComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

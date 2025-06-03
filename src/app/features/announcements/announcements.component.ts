@@ -1,42 +1,45 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { map } from 'rxjs';
 import { ToastService } from '../../core/services/toast.service';
 import { Announcement } from './announcement.model';
 import { AnnouncementService } from './announcement.service';
-import { announcementData, announcementToken } from './announcement.values';
 
 @Component({
   selector: 'app-announcements',
   imports: [CommonModule],
-  providers: [{ provide: announcementToken, useValue: announcementData }],
   templateUrl: './announcements.component.html',
   styleUrl: './announcements.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AnnouncementsComponent {
+export default class AnnouncementsComponent implements OnInit {
   private announcementService = inject(AnnouncementService);
   private toastService = inject(ToastService);
-  announcements: Announcement[] = announcementData
-    .filter((s) => s.status === 'OPEN')
-    .map((a) => ({
-      ...a,
-      createdAt: this.getRelativeTime(a.createdAt),
-    }));
+  announcements = signal<Announcement[]>([]);
 
-  constructor() {
-    this.announcementService.getAnnouncements().subscribe({
-      next: (res) => {
-        this.announcements = res
-          .filter((open) => open.status === 'OPEN')
-          .map((a) => ({
-            ...a,
-            createdAt: this.getRelativeTime(a.createdAt),
-          }));
-      },
-      error: () => {
-        this.toastService.showError('Error', 'Error Fetching Details');
-      },
-    });
+  constructor() {}
+
+  ngOnInit() {
+    this.announcementService
+      .getAnnouncements()
+      .pipe(map((r) => r.filter((r) => r.status === 'OPEN')))
+      .subscribe({
+        next: (res) => {
+          res.map((r) => {
+            r.createdAt = this.getRelativeTime(r.createdAt);
+          });
+          this.announcements.set(res);
+        },
+        error: () => {
+          this.toastService.showError('Error', 'Error Fetching Details');
+        },
+      });
   }
   getRelativeTime(dateString: string): string {
     const now = new Date();

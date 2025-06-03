@@ -1,7 +1,7 @@
 <div class="m-3">
   <h1>Welcome, {{ username }}</h1>
   <div class="row g-3">
-    <div class="col-12 col-lg-6">
+    <div class="col-12">
       <div class="alert alert-warning" role="alert">Rent due in 3 days</div>
       <h5>Quick Links</h5>
       <div class="row row-cols-1 row-cols-sm-2 g-3">
@@ -47,18 +47,9 @@
         </div>
       </div>
     </div>
-    <div class="col-12 col-lg-6">
-      <h5>Recent Announcements</h5>
-      <div class="p-3 border rounded mb-3">
-        <div class="alert alert-info" role="alert">
-          Water supply will be interrupted on Saturday from 10am to 2pm.
-        </div>
-        <div class="alert alert-success" role="alert">
-          Community meeting scheduled for Sunday at 5pm in the clubhouse.
-        </div>
-        <div class="alert alert-primary" role="alert">
-          New gym equipment installed and available for use.
-        </div>
+    <div class="col-12">
+      <div class="border rounded mb-3">
+        <app-announcements></app-announcements>
       </div>
     </div>
   </div>

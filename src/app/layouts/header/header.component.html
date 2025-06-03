@@ -59,8 +59,14 @@
     ></lucide-angular>
   </button>
 </mat-toolbar>
+
 <mat-sidenav-container class="sidenav-wrapper">
-  <mat-sidenav #sidenav mode="over">
+  <mat-sidenav
+    #sidenav
+    mode="side"
+    [opened]="!isMobileOrTablet() && authService.isAuthenticated()"
+    [disableClose]="true"
+  >
     <nav>
       <ul class="py-3 px-5 list-unstyled">
         <li
@@ -73,7 +79,7 @@
             [routerLink]="n.path"
             class="rounded-5 list-div d-flex flex-row py-2 ps-3 mb-2"
             matRipple
-            (click)="sidenav.toggle()"
+            (click)="isMobileOrTablet() && sidenav.toggle()"
           >
             <lucide-angular [img]="n.icon" class="my-icon"></lucide-angular>
             <p class="ps-2 m-0 fw-semibold">{{ n.menuItem }}</p>
@@ -145,7 +151,6 @@
                         [routerLink]="n.path"
                         class="rounded-4 list-div d-flex flex-row py-2 ps-3 align-items-center"
                         matRipple
-                        (click)="sidenav.toggle()"
                         style="background: transparent; min-height: 40px"
                       >
                         <lucide-angular
