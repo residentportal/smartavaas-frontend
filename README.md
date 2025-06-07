@@ -62,14 +62,14 @@ For more information on using the Angular CLI, including detailed command refere
 
 Thanks to all the people who contribute to this project!
 
-<a href="https://github.com/your-username">
-    <img src="https://avatars.githubusercontent.com/u/mahesh-del?v=4" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
+<a href="https://github.com/mahesh-del">
+    <img src="https://github.com/mahesh-del.png" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
 </a>
 BaaruTech1806
-<a href="https://github.com/your-username">
-    <img src="https://avatars.githubusercontent.com/u/BaaruTech1806?v=4" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
+<a href="https://github.com/BaaruTech1806">
+    <img src="https://github.com/BaaruTech1806.png" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
 </a>
-<a href="https://github.com/your-username">
-    <img src="https://avatars.githubusercontent.com/u/kahar12911?v=4" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
+<a href="https://github.com/kahar12911">
+    <img src="https://github.com/kahar12911.png" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
 </a>
 <!-- Add more contributors as needed -->
