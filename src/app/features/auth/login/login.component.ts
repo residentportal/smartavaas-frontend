@@ -15,9 +15,10 @@ import {
 import { Router, RouterLink } from '@angular/router';
 import { Eye, EyeClosed, LucideAngularModule } from 'lucide-angular';
 import { InputOtp } from 'primeng/inputotp';
+import { catchError, switchMap } from 'rxjs';
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../auth.service';
-import { Login } from './login.model';
+import { IVerifyOtp } from './login.model';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +48,7 @@ export default class LoginComponent {
   isOtpLogin: boolean = false;
   otpEmail: string = '';
   showOtpInput: boolean = false;
-  otpValue: string = '';
+  otpValue!: string;
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -67,34 +68,69 @@ export default class LoginComponent {
   }
   submitOtpEmail(): void {
     this.isOtpLoading.set(true);
-    this.authService.sendOtp(this.otpEmail).subscribe((c) => console.log(c));
-    this.toastService.showSuccess('OTP Sent', 'Check your email for the OTP');
-    this.showOtpInput = true;
-    setTimeout(() => {
-      this.isOtpLoading.set(false);
-    }, 2000);
+    this.authService
+      .isEmailValid(this.otpEmail)
+      .pipe(
+        switchMap(() => this.authService.sendOtp(this.otpEmail)),
+        catchError((err) => {
+          throw err;
+        })
+      )
+      .subscribe({
+        next: () => {
+          this.toastService.showSuccess(
+            'OTP Sent',
+            'Check your email for the OTP'
+          );
+          this.showOtpInput = true;
+          this.isOtpLoading.set(false);
+        },
+        error: (err) => {
+          console.log(err);
+          this.toastService.showError(
+            'Error',
+            err.error?.message || 'An error occurred'
+          );
+          this.isOtpLoading.set(false);
+        },
+      });
   }
 
   verifyOtp(): void {
-    this.toastService.showSuccess('OTP Verified', 'OTP is correct!');
-    this.router.navigate(['./dashboard']);
+    this.authService.verifyOtp(this.otpEmail, this.otpValue).subscribe({
+      next: (res: IVerifyOtp) => {
+        const token = res.data.token;
+        const username = res.data.fullname;
+        sessionStorage.setItem('auth_token', token ?? '');
+        sessionStorage.setItem('username', username ?? '');
+        this.router.navigate(['./dashboard']);
+      },
+      error: () => {
+        this.toastService.showError('Invalid OTP', 'Please enter valid OTP');
+      },
+    });
   }
   resendOtp(): void {
-    this.toastService.showSuccess(
-      'OTP Sent',
-      'A new OTP has been sent to your email'
-    );
+    this.submitOtpEmail();
+    this.otpValue = '';
   }
   onSubmit() {
+    if (this.loginForm.invalid) {
+      this.toastService.showError('Error', 'Please enter credentials');
+      return;
+    }
     this.isLoading.set(true);
     const formData = this.loginForm.value;
     if (this.loginForm.invalid) {
       return;
     }
-    this.authService.login(formData).subscribe({
-      next: (res: Login) => {
-        sessionStorage.setItem('username', res.fullname ?? '');
-        sessionStorage.setItem('auth_token', res.token ?? '');
+    const { email, password } = formData;
+    this.authService.login(email, password).subscribe({
+      next: (res: IVerifyOtp) => {
+        const token = res.data.token;
+        const username = res.data.fullname;
+        sessionStorage.setItem('auth_token', token ?? '');
+        sessionStorage.setItem('username', username ?? '');
         this.isLoading.set(false);
         this.toastService.showSuccess('Success', 'Login Success');
         this.router.navigate(['/dashboard']);

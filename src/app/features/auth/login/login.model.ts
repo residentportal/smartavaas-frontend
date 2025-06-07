@@ -1,6 +1,15 @@
-export interface Login {
+export interface IVerifyOtp {
+  timestamp: string;
+  statusCode: number;
+  status: string;
+  message: string;
+  data: IOtp;
+}
+
+export interface IOtp {
+  token: string;
   email: string;
-  password: string;
-  token?: string;
-  fullname?: string;
+  fullname: string;
+  userId: number;
+  role: Array<string>;
 }

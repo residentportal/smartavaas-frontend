@@ -1,5 +1,4 @@
 <div class="container-fluid" style="max-width: 400px; margin-top: 10vh">
-  <h1 class="text-center">Smart Avaas</h1>
   <div class="form card shadow mb-2 bg-body-tertiary rounded-2 border-0">
     <div class="card-body">
       <ng-container *ngIf="!isOtpLogin; else otpLoginBlock">
@@ -81,11 +80,10 @@
           </div>
           <button
             type="submit"
-            [disabled]="loginForm.invalid || isLoading()"
+            [disabled]="isLoading()"
             class="btn btn-primary fw-bold w-100"
           >
-            <span>{{ isLoading() ? "" : "Login with Password" }} </span
-            >@if(isLoading()){
+            <span>{{ isLoading() ? "" : "Log In  " }} </span>@if(isLoading()){
             <div class="spinner-border spinner-border-sm" role="status">
               <span class="visually-hidden"></span>
             </div>
@@ -145,7 +143,7 @@
               type="submit"
               class="btn btn-primary"
             >
-              <span>{{ isOtpLoading() ? "" : "Send OTP" }} </span
+              <span>{{ isOtpLoading() ? "Sending..." : "Send OTP" }} </span
               >@if(isOtpLoading()){
               <div class="spinner-border spinner-border-sm" role="status">
                 <span class="visually-hidden"></span>
@@ -173,7 +171,8 @@
             <button
               type="button"
               class="btn btn-primary w-100"
-              [disabled]="!otpValue || otpValue.length !== 6"
+              [disabled]="!otpValue || otpValue.length < 6"
+              length="6"
               (click)="verifyOtp()"
             >
               Verify OTP
@@ -203,7 +202,7 @@
         (click)="enableOtpLogin()"
         *ngIf="!isOtpLogin"
       >
-        Login with OTP
+        Sign In without Password
       </button>
     </div>
   </div>
@@ -211,7 +210,7 @@
     <p class="text-center mt-3">
       No Account yet?
       <span>
-        <a routerLink="/register" class="text-decoration-none">SignUp</a>
+        <a routerLink="/register" class="text-decoration-none">Sign Up</a>
       </span>
     </p>
   </ng-container>

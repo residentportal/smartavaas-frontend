@@ -89,6 +89,8 @@ export default class RegisterComponent {
           this.toastService.showError('Error', err.error);
         },
       });
+    } else {
+      this.toastService.showError('Error', 'Please enter required fields');
     }
   }
 
