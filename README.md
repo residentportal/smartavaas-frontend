@@ -62,14 +62,6 @@ For more information on using the Angular CLI, including detailed command refere
 
 Thanks to all the people who contribute to this project!
 
-<a href="https://github.com/mahesh-del">
-    <img src="https://github.com/mahesh-del.png" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
+<a href="https://github.com/residentportal/smartavaas-frontend/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=residentportal/smartavaas-frontend" />
 </a>
-BaaruTech1806
-<a href="https://github.com/BaaruTech1806">
-    <img src="https://github.com/BaaruTech1806.png" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
-</a>
-<a href="https://github.com/kahar12911">
-    <img src="https://github.com/kahar12911.png" width="60" alt="Contributor Name" style="border-radius: 50%; margin-right: 10px;" />
-</a>
-<!-- Add more contributors as needed -->
