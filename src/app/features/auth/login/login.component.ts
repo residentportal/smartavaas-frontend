@@ -67,6 +67,7 @@ export default class LoginComponent {
   }
   submitOtpEmail(): void {
     this.isOtpLoading.set(true);
+    this.authService.sendOtp(this.otpEmail).subscribe((c) => console.log(c));
     this.toastService.showSuccess('OTP Sent', 'Check your email for the OTP');
     this.showOtpInput = true;
     setTimeout(() => {

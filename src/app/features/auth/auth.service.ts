@@ -48,4 +48,8 @@ export class AuthService {
     sessionStorage.removeItem('username');
     this.router.navigate(['/login']);
   }
+
+  sendOtp(email: string) {
+    return this.http.post<string>(`${this.baseURL}auth/send-otp`, email);
+  }
 }
