@@ -141,11 +141,16 @@
               Back to Login
             </button>
             <button
-              [disabled]="otpEmailRef.invalid"
+              [disabled]="otpEmailRef.invalid || isOtpLoading()"
               type="submit"
               class="btn btn-primary"
             >
-              Send OTP
+              <span>{{ isOtpLoading() ? "" : "Send OTP" }} </span
+              >@if(isOtpLoading()){
+              <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden"></span>
+              </div>
+              }
             </button>
           </div>
         </form>
@@ -198,11 +203,7 @@
         (click)="enableOtpLogin()"
         *ngIf="!isOtpLogin"
       >
-        <span>{{ isLoading() ? "" : "Login with OTP" }} </span>@if(isLoading()){
-        <div class="spinner-border spinner-border-sm" role="status">
-          <span class="visually-hidden"></span>
-        </div>
-        }
+        Login with OTP
       </button>
     </div>
   </div>

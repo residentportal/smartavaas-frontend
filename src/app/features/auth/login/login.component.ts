@@ -36,6 +36,7 @@ import { Login } from './login.model';
 })
 export default class LoginComponent {
   protected isLoading = signal<boolean>(false);
+  protected isOtpLoading = signal<boolean>(false);
   private toastService = inject(ToastService);
   loginForm: FormGroup;
   private router = inject(Router);
@@ -65,8 +66,12 @@ export default class LoginComponent {
     this.otpEmail = '';
   }
   submitOtpEmail(): void {
+    this.isOtpLoading.set(true);
     this.toastService.showSuccess('OTP Sent', 'Check your email for the OTP');
     this.showOtpInput = true;
+    setTimeout(() => {
+      this.isOtpLoading.set(false);
+    }, 2000);
   }
 
   verifyOtp(): void {

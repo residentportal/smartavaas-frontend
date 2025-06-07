@@ -146,7 +146,6 @@ export class HeaderComponent {
 
   isMobileOrTablet(): boolean {
     const ua = navigator.userAgent;
-    console.log(ua);
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Tablet|Mobile/i.test(
       ua
     );
