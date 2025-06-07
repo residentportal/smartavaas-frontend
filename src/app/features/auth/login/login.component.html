@@ -2,100 +2,216 @@
   <h1 class="text-center">Smart Avaas</h1>
   <div class="form card shadow mb-2 bg-body-tertiary rounded-2 border-0">
     <div class="card-body">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
-          <input
-            type="email"
-            id="email"
-            class="form-control"
-            formControlName="email"
-            [ngClass]="{
-              'is-invalid':
-                loginForm.get('email')?.invalid &&
-                (loginForm.get('email')?.touched ||
-                  loginForm.get('email')?.dirty)
-            }"
-          />
-          @if(loginForm.get('email')?.invalid){
-          <div
-            class="text-danger mt-1"
-            *ngIf="
-              loginForm.get('email')?.touched || loginForm.get('email')?.dirty
-            "
-          >
-            <small *ngIf="loginForm.get('email')?.errors?.['required']"
-              >Email ID is required.</small
-            >
-            <small *ngIf="loginForm.get('email')?.errors?.['email']"
-              >Invalid Format.</small
-            >
-          </div>
-          }
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <div class="position-relative">
+      <ng-container *ngIf="!isOtpLogin; else otpLoginBlock">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
             <input
-              [type]="showPassword ? 'text' : 'password'"
-              id="password"
+              type="email"
+              id="email"
               class="form-control"
-              formControlName="password"
+              formControlName="email"
               [ngClass]="{
                 'is-invalid':
-                  loginForm.get('password')?.invalid &&
-                  (loginForm.get('password')?.touched ||
-                    loginForm.get('password')?.dirty)
+                  loginForm.get('email')?.invalid &&
+                  (loginForm.get('email')?.touched ||
+                    loginForm.get('email')?.dirty)
               }"
-              style="background-image: none !important"
             />
-            @if(loginForm.get('password')?.touched ||
-            loginForm.get('password')?.dirty){
-            <lucide-angular
-              [img]="showPassword ? eyeCloseIcon : eyeOpenIcon"
-              [size]="20"
-              class="bi position-absolute top-50 translate-middle-y"
-              (click)="toggleShowPassword()"
-              style="right: 2rem; cursor: pointer"
-              aria-label="Toggle password visibility"
-            ></lucide-angular>
+            @if(loginForm.get('email')?.invalid){
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                loginForm.get('email')?.touched || loginForm.get('email')?.dirty
+              "
+            >
+              <small *ngIf="loginForm.get('email')?.errors?.['required']"
+                >Email ID is required.</small
+              >
+              <small *ngIf="loginForm.get('email')?.errors?.['email']"
+                >Invalid Format.</small
+              >
+            </div>
             }
           </div>
-          @if(loginForm.get('password')?.invalid){
-          <div
-            class="text-danger mt-1"
-            *ngIf="
-              loginForm.get('password')?.touched ||
-              loginForm.get('password')?.dirty
-            "
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="position-relative">
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                class="form-control"
+                formControlName="password"
+                [ngClass]="{
+                  'is-invalid':
+                    loginForm.get('password')?.invalid &&
+                    (loginForm.get('password')?.touched ||
+                      loginForm.get('password')?.dirty)
+                }"
+                style="background-image: none !important"
+              />
+              @if(loginForm.get('password')?.touched ||
+              loginForm.get('password')?.dirty){
+              <lucide-angular
+                [img]="showPassword ? eyeCloseIcon : eyeOpenIcon"
+                [size]="20"
+                class="bi position-absolute top-50 translate-middle-y"
+                (click)="toggleShowPassword()"
+                style="right: 2rem; cursor: pointer"
+                aria-label="Toggle password visibility"
+              ></lucide-angular>
+              }
+            </div>
+            @if(loginForm.get('password')?.invalid){
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                loginForm.get('password')?.touched ||
+                loginForm.get('password')?.dirty
+              "
+            >
+              <small *ngIf="loginForm.get('password')?.errors?.['required']"
+                >Password is required.</small
+              >
+            </div>
+            }
+          </div>
+          <div class="text-end mb-3">
+            <a href="#" class="text-decoration-none">Forgot password?</a>
+          </div>
+          <button
+            type="submit"
+            [disabled]="loginForm.invalid || isLoading()"
+            class="btn btn-primary fw-bold w-100"
           >
-            <small *ngIf="loginForm.get('password')?.errors?.['required']"
-              >Password is required.</small
+            <span>{{ isLoading() ? "" : "Login with Password" }} </span
+            >@if(isLoading()){
+            <div class="spinner-border spinner-border-sm" role="status">
+              <span class="visually-hidden"></span>
+            </div>
+            }
+          </button>
+        </form>
+        <div class="d-flex align-items-center my-3">
+          <hr class="flex-grow-1 m-0" />
+          <span class="mx-2 text-muted">or</span>
+          <hr class="flex-grow-1 m-0" />
+        </div>
+      </ng-container>
+      <ng-template #otpLoginBlock>
+        <form *ngIf="!showOtpInput" (ngSubmit)="submitOtpEmail()">
+          <div class="mb-3">
+            <label for="otpEmail" class="form-label">Enter your Email</label>
+            <input
+              type="email"
+              id="otpEmail"
+              class="form-control"
+              [ngClass]="{
+                'is-invalid':
+                  otpEmailRef.invalid &&
+                  (otpEmailRef.dirty || otpEmailRef.touched)
+              }"
+              [(ngModel)]="otpEmail"
+              name="otpEmail"
+              required
+              email
+              #otpEmailRef="ngModel"
+            />
+            <div
+              class="text-danger mt-1"
+              *ngIf="
+                otpEmailRef.invalid &&
+                (otpEmailRef.dirty || otpEmailRef.touched)
+              "
+            >
+              <small *ngIf="otpEmailRef.errors?.['required']"
+                >Email ID is required.</small
+              >
+              <small *ngIf="otpEmailRef.errors?.['email']"
+                >Invalid Format.</small
+              >
+            </div>
+          </div>
+          <div class="d-flex justify-content-between">
+            <button
+              type="button"
+              class="btn btn-link p-0 a-link text-decoration-none"
+              (click)="cancelOtpLogin()"
+            >
+              Back to Login
+            </button>
+            <button
+              [disabled]="otpEmailRef.invalid"
+              type="submit"
+              class="btn btn-primary"
+            >
+              Send OTP
+            </button>
+          </div>
+        </form>
+        <div *ngIf="showOtpInput">
+          <h5 class="text-center py-3">Enter the code we just sent you</h5>
+          <div class="mb-3 text-muted">
+            We have sent you an email with a 6-digit OTP. Please enter it below
+            to continue.
+          </div>
+          <p-inputotp
+            [(ngModel)]="otpValue"
+            autofocus="true"
+            [integerOnly]="true"
+            [length]="6"
+            inputStyleClass="form-control"
+            name="otpValue"
+          ></p-inputotp>
+
+          <div class="d-flex justify-content-between align-items-center my-3">
+            <button
+              type="button"
+              class="btn btn-primary w-100"
+              [disabled]="!otpValue || otpValue.length !== 6"
+              (click)="verifyOtp()"
+            >
+              Verify OTP
+            </button>
+          </div>
+          <div class="d-flex justify-content-between">
+            <a
+              href="javascript:void(0)"
+              class="text-decoration-none small me-2"
+              (click)="showOtpInput = false"
+            >
+              Edit Email
+            </a>
+            <a
+              href="javascript:void(0)"
+              class="text-decoration-none small"
+              (click)="resendOtp()"
+              >Resend OTP</a
             >
           </div>
-          }
         </div>
-        <div class="text-end mb-3">
-          <a href="#" class="text-decoration-none">Forgot password?</a>
+      </ng-template>
+
+      <button
+        type="button"
+        class="btn btn-secondary fw-bold w-100"
+        (click)="enableOtpLogin()"
+        *ngIf="!isOtpLogin"
+      >
+        <span>{{ isLoading() ? "" : "Login with OTP" }} </span>@if(isLoading()){
+        <div class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden"></span>
         </div>
-        <button
-          type="submit"
-          [disabled]="loginForm.invalid || isLoading()"
-          class="btn btn-primary w-100"
-        >
-          <span>{{ isLoading() ? "" : "Login" }} </span>@if(isLoading()){
-          <div class="spinner-border spinner-border-sm" role="status">
-            <span class="visually-hidden"></span>
-          </div>
-          }
-        </button>
-      </form>
+        }
+      </button>
     </div>
   </div>
-  <p class="text-center mt-3">
-    No Account yet?
-    <span
-      ><a routerLink="/register" class="text-decoration-none">SignUp</a></span
-    >
-  </p>
+  <ng-container *ngIf="!isOtpLogin">
+    <p class="text-center mt-3">
+      No Account yet?
+      <span>
+        <a routerLink="/register" class="text-decoration-none">SignUp</a>
+      </span>
+    </p>
+  </ng-container>
 </div>

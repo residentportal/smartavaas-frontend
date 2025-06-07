@@ -8,11 +8,13 @@ import {
 import {
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Eye, EyeClosed, LucideAngularModule } from 'lucide-angular';
+import { InputOtp } from 'primeng/inputotp';
 import { ToastService } from '../../../core/services/toast.service';
 import { AuthService } from '../auth.service';
 import { Login } from './login.model';
@@ -22,7 +24,14 @@ import { Login } from './login.model';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, LucideAngularModule],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    CommonModule,
+    RouterLink,
+    LucideAngularModule,
+    InputOtp,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginComponent {
@@ -34,6 +43,10 @@ export default class LoginComponent {
   protected showPassword: boolean = false;
   readonly eyeOpenIcon = Eye;
   readonly eyeCloseIcon = EyeClosed;
+  isOtpLogin: boolean = false;
+  otpEmail: string = '';
+  showOtpInput: boolean = false;
+  otpValue: string = '';
   constructor(private fb: FormBuilder) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -43,6 +56,28 @@ export default class LoginComponent {
 
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
+  }
+  enableOtpLogin(): void {
+    this.isOtpLogin = true;
+  }
+  cancelOtpLogin(): void {
+    this.isOtpLogin = false;
+    this.otpEmail = '';
+  }
+  submitOtpEmail(): void {
+    this.toastService.showSuccess('OTP Sent', 'Check your email for the OTP');
+    this.showOtpInput = true;
+  }
+
+  verifyOtp(): void {
+    this.toastService.showSuccess('OTP Verified', 'OTP is correct!');
+    this.router.navigate(['./dashboard']);
+  }
+  resendOtp(): void {
+    this.toastService.showSuccess(
+      'OTP Sent',
+      'A new OTP has been sent to your email'
+    );
   }
   onSubmit() {
     this.isLoading.set(true);

@@ -1,4 +1,16 @@
 a,
+.a-link,
 h1 {
   color: var(--green-primary);
+}
+:host {
+  ::ng-deep {
+    .p-inputotp-input {
+      background-color: var(--iwhite) !important;
+      color: var(--iblack) !important;
+    }
+    .p-inputotp {
+      justify-content: space-between !important;
+    }
+  }
 }
