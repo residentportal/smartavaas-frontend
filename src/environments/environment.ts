@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://governing-bria-smartavaascommunity-b1ca0550.koyeb.app/',
+  apiUrl: 'http://backend-710061159.us-east-1.elb.amazonaws.com/',
 };
