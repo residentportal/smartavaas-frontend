@@ -47,8 +47,7 @@ export class AuthService {
   }
 
   logout(): void {
-    sessionStorage.removeItem(this.TOKEN_KEY);
-    sessionStorage.removeItem('username');
+    sessionStorage.clear();
     this.router.navigate(['/login']);
   }
 
@@ -64,5 +63,8 @@ export class AuthService {
       email,
       otp,
     });
+  }
+  getToken(): string | null {
+    return sessionStorage.getItem(this.TOKEN_KEY);
   }
 }

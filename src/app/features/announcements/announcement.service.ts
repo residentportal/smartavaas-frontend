@@ -9,14 +9,9 @@ import { Announcement } from './announcement.model';
 })
 export class AnnouncementService {
   private baseURL = environment.apiUrl;
-  constructor() {}
   private http = inject(HttpClient);
 
   getAnnouncements(): Observable<Announcement[]> {
-    const token = sessionStorage.getItem('auth_token');
-    const headers = { Authorization: `Bearer ${token}` };
-    return this.http.get<Announcement[]>(`${this.baseURL}api/getAnnouncement`, {
-      headers,
-    });
+    return this.http.get<Announcement[]>(`${this.baseURL}api/getAnnouncement`);
   }
 }
