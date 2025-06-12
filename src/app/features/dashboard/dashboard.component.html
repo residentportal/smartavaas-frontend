@@ -1,8 +1,32 @@
 <div class="m-3">
   <h1>Welcome, {{ username }}</h1>
-  <div class="row g-3">
+  <div class="col-12">
+    <div class="card p-3 mb-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="amount">
+          <p class="m-0 small">No amount due</p>
+          <b>$0.00</b>
+        </div>
+        <div class="pay-now">
+          <button class="btn btn-sm btn-primary">Pay Now</button>
+        </div>
+      </div>
+      <hr />
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="due-date">
+          <p class="m-0 small">Next Payment Due</p>
+          <b>March 1, 2024</b>
+        </div>
+        <div class="auto-payment text-end">
+          <small class="m-0">Auto Payments </small>
+          <span class="badge bg-success">On</span><br />
+          <button class="btn btn-sm btn-link p-0 text-decoration-none">
+            View Payment History
+          </button>
+        </div>
+      </div>
+    </div>
     <div class="col-12">
-      <div class="alert alert-warning" role="alert">Rent due in 3 days</div>
       <h5>Quick Links</h5>
       <div class="row row-cols-1 row-cols-sm-2 g-3">
         <div class="col">
@@ -47,6 +71,7 @@
         </div>
       </div>
     </div>
+    <br />
     <div class="col-12">
       <div class="border rounded mb-3">
         <app-announcements></app-announcements>
