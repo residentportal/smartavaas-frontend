@@ -1,0 +1,20 @@
+<div class="col-12">
+  <h4>Requests History</h4>
+  <ng-container *ngIf="maintenanceRequests$ | async as requests">
+    @for(request of requests; track request.id) {
+    <div class="card d-flex align-items-center flex-row p-3 mb-3">
+      <div class="col">
+        <div>
+          <strong>{{ request.title }}</strong>
+        </div>
+        <div>
+          <small>{{ request.description }}</small>
+        </div>
+      </div>
+      <div class="col text-end">
+        <button class="btn btn-outline btn-sm btn-primary">View Details</button>
+      </div>
+    </div>
+    }
+  </ng-container>
+</div>
