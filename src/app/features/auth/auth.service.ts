@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { IVerifyOtp } from './login/login.model';
 import { iRegister as IRegister } from './register/register.model';
 
@@ -14,17 +13,16 @@ export class AuthService {
   private router = inject(Router);
   constructor() {}
 
-  protected baseURL = environment.apiUrl;
   private http = inject(HttpClient);
 
   login(email: string, password: string) {
-    return this.http.post<IVerifyOtp>(`${this.baseURL}auth/login`, {
+    return this.http.post<IVerifyOtp>(`auth/login`, {
       email,
       password,
     });
   }
   register(data: IRegister): Observable<IRegister> {
-    return this.http.post<IRegister>(`${this.baseURL}users/register`, data);
+    return this.http.post<IRegister>(`users/register`, data);
   }
 
   isAuthenticated(): boolean {
@@ -52,14 +50,14 @@ export class AuthService {
   }
 
   isEmailValid(email: string) {
-    return this.http.post<string>(`${this.baseURL}auth/check-email`, { email });
+    return this.http.post<string>(`auth/check-email`, { email });
   }
   sendOtp(email: string) {
-    return this.http.post<string>(`${this.baseURL}auth/send-otp`, { email });
+    return this.http.post<string>(`auth/send-otp`, { email });
   }
 
   verifyOtp(email: string, otp: string) {
-    return this.http.post<IVerifyOtp>(`${this.baseURL}auth/verify-otp`, {
+    return this.http.post<IVerifyOtp>(`auth/verify-otp`, {
       email,
       otp,
     });

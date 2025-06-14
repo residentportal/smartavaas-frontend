@@ -32,4 +32,8 @@ export const routes: Routes = [
       import('./features/announcements/announcements.component'),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'maintenance',
+    loadComponent: () => import('./features/maintenance/maintenance.component'),
+  },
 ];

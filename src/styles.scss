@@ -31,6 +31,10 @@ body {
   background-color: var(--green-deep);
   border: none !important;
 }
+.btn-outline {
+  background-color: rgba(192, 228, 199, 0.5) !important;
+  color: var(--green-deep) !important;
+}
 .form-control:focus {
   border-color: var(--green-primary);
   box-shadow: 0 0 0 0.1rem rgba(var(--green-primary), 0.25);

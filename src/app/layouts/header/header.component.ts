@@ -101,7 +101,7 @@ export class HeaderComponent {
       icon: MicVocalIcon,
     },
     {
-      path: 'login',
+      path: 'maintenance',
       menuItem: 'Maintenance',
       icon: ConstructionIcon,
     },
