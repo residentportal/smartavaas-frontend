@@ -73,10 +73,7 @@
   >
     <nav>
       <ul class="py-3 px-5 list-unstyled">
-        <li
-          *ngFor="let n of navItems; let i = index"
-          class="w-100 cursor-pointer mb-2"
-        >
+        <li *ngFor="let n of navItems; let i = index" class="w-100 mb-2">
           <div
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
@@ -147,7 +144,7 @@
                   <ul class="list-unstyled ps-2">
                     <li
                       *ngFor="let n of amenities; let i = index"
-                      class="w-100 cursor-pointer mb-2"
+                      class="w-100 mb-2"
                     >
                       <div
                         routerLinkActive="active"

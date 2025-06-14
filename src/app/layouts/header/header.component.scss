@@ -47,3 +47,7 @@ ul {
   scrollbar-width: 2rem !important;
   scrollbar-color: var(--green) var(--iwhite);
 }
+
+li > div {
+  cursor: pointer;
+}
