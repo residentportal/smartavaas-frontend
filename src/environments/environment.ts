@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://resiassist-backend.onrender.com/',
+  apiUrl: 'http://app-dev-2046497480.us-east-1.elb.amazonaws.com/',
 };
